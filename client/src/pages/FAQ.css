@@ -1,0 +1,140 @@
+.faq-page {
+  padding-top: 80px;
+}
+
+.faq-hero {
+  padding: 80px 0 40px;
+  text-align: center;
+}
+
+.faq-hero .hero-title {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 20px;
+}
+
+.faq-hero .hero-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.faq-search {
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 1.1rem;
+}
+
+.search-input {
+  padding-left: 48px !important;
+}
+
+.faq-container {
+  max-width: 800px;
+}
+
+.faq-category {
+  margin-bottom: 50px;
+}
+
+.faq-category-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-left: 4px;
+  color: var(--text-primary);
+}
+
+.faq-item {
+  margin-bottom: 12px;
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  border-color: var(--border-strong);
+}
+
+.faq-open {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 20px var(--accent-bg);
+}
+
+.faq-question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.faq-question h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.faq-chevron {
+  color: var(--accent);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.faq-answer {
+  overflow: hidden;
+}
+
+.faq-answer p {
+  padding-top: 16px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.faq-category-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.faq-results-count {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.faq-cta {
+  text-align: center;
+  padding: 50px 30px;
+  margin-top: 40px;
+}
+
+.faq-cta h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.faq-cta p {
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}

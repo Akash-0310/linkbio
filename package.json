@@ -1,0 +1,14 @@
+{
+  "name": "linkbio",
+  "version": "1.0.0",
+  "description": "Link in Bio Page Builder - Self-hosted Linktree alternative",
+  "scripts": {
+    "server": "cd server && node server.js",
+    "client": "cd client && npx vite --port 5173",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "cd client && npx vite build",
+    "install-all": "cd server && npm install && cd ../client && npm install"
+  },
+  "keywords": ["link-in-bio", "linktree", "mern", "react", "nodejs"],
+  "license": "MIT"
+}
