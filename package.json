@@ -10,5 +10,8 @@
     "install-all": "cd server && npm install && cd ../client && npm install"
   },
   "keywords": ["link-in-bio", "linktree", "mern", "react", "nodejs"],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
 }
