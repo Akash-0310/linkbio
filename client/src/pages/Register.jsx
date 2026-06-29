@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext';
 import './Auth.css';
 
 const Register = () => {
-  const [form, setForm] = useState({ username: '', displayName: '', email: '', password: '' });
+  const [form, setForm] = useState({ username: '', displayName: '', email: '', password: '', confirmPassword: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
@@ -20,6 +20,10 @@ const Register = () => {
     setError('');
     if (form.password.length < 6) {
       setError('Password must be at least 6 characters');
+      return;
+    }
+    if (form.password !== form.confirmPassword) {
+      setError('Passwords do not match');
       return;
     }
     if (!/^[a-z0-9_-]+$/.test(form.username)) {
@@ -95,17 +99,31 @@ const Register = () => {
               required
             />
           </div>
-          <div className="form-group">
-            <label><FiLock /> Password</label>
-            <input
-              type="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              placeholder="Min 6 characters"
-              className="form-input"
-              required
-            />
+          <div className="form-row-auth">
+            <div className="form-group">
+              <label><FiLock /> Password</label>
+              <input
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                placeholder="Min 6 characters"
+                className="form-input"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label><FiLock /> Confirm Password</label>
+              <input
+                type="password"
+                name="confirmPassword"
+                value={form.confirmPassword}
+                onChange={handleChange}
+                placeholder="Re-enter password"
+                className="form-input"
+                required
+              />
+            </div>
           </div>
           {error && <div className="auth-error">{error}</div>}
           <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%' }} disabled={loading}>
