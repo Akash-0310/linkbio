@@ -34,6 +34,19 @@ export const AuthProvider = ({ children }) => {
     return data;
   };
 
+  const forgotPassword = async (email) => {
+    const { data } = await axios.post(`${API}/auth/forgot-password`, { email });
+    return data;
+  };
+
+  const resetPassword = async (token, password) => {
+    const { data } = await axios.post(`${API}/auth/reset-password/${token}`, { password });
+    localStorage.setItem('linkbio-user', JSON.stringify(data));
+    axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+    setUser(data);
+    return data;
+  };
+
   const logout = () => {
     localStorage.removeItem('linkbio-user');
     delete axios.defaults.headers.common['Authorization'];
@@ -47,7 +60,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, updateUser, loading }}>
+    <AuthContext.Provider value={{ user, login, register, forgotPassword, resetPassword, logout, updateUser, loading }}>
       {children}
     </AuthContext.Provider>
   );

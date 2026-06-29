@@ -12,6 +12,8 @@ import Resources from './pages/Resources';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import Dashboard from './pages/Dashboard';
 import PublicProfile from './pages/PublicProfile';
 import { Navigate } from 'react-router-dom';
@@ -24,8 +26,9 @@ const ProtectedRoute = ({ children }) => {
 
 const AppContent = () => {
   const location = useLocation();
-  const isPublicProfile = !['/', '/about', '/faq', '/resources', '/contact', '/login', '/register', '/dashboard'].includes(location.pathname);
-  const isAuthPage = ['/login', '/register'].includes(location.pathname);
+  const path = location.pathname;
+  const isAuthPage = ['/login', '/register', '/forgot-password'].includes(path) || path.startsWith('/reset-password');
+  const isPublicProfile = !['/', '/about', '/faq', '/resources', '/contact', '/dashboard'].includes(path) && !isAuthPage;
   const showLayout = !isPublicProfile && !isAuthPage;
 
   return (
@@ -42,6 +45,8 @@ const AppContent = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/:username" element={<PublicProfile />} />
           </Routes>

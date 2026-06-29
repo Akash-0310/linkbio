@@ -1,28 +1,37 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FiMail, FiLock, FiArrowRight } from 'react-icons/fi';
+import { FiLock, FiArrowRight, FiArrowLeft } from 'react-icons/fi';
 import { IoRocketOutline } from 'react-icons/io5';
 import { useAuth } from '../context/AuthContext';
 import './Auth.css';
 
-const Login = () => {
-  const [email, setEmail] = useState('');
+const ResetPassword = () => {
+  const { token } = useParams();
   const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { resetPassword } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+    if (password !== confirm) {
+      setError('Passwords do not match');
+      return;
+    }
     setLoading(true);
     try {
-      await login(email, password);
+      await resetPassword(token, password);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please try again.');
+      setError(err.response?.data?.message || 'Reset failed. The link may have expired.');
     } finally {
       setLoading(false);
     }
@@ -43,46 +52,45 @@ const Login = () => {
             <div className="logo-icon"><IoRocketOutline /></div>
             <span className="logo-text">Link<span className="text-gradient">Bio</span></span>
           </Link>
-          <h1>Welcome Back</h1>
-          <p>Sign in to manage your link page</p>
+          <h1>Set a New Password</h1>
+          <p>Choose a strong password for your account</p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label><FiMail /> Email Address</label>
+            <label><FiLock /> New Password</label>
             <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="john@example.com"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Min 6 characters"
               className="form-input"
               required
             />
           </div>
           <div className="form-group">
-            <label><FiLock /> Password</label>
+            <label><FiLock /> Confirm Password</label>
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
+              placeholder="Re-enter your password"
               className="form-input"
               required
             />
-            <Link to="/forgot-password" className="auth-forgot-link">Forgot password?</Link>
           </div>
           {error && <div className="auth-error">{error}</div>}
           <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%' }} disabled={loading}>
-            {loading ? 'Signing in...' : <>Sign In <FiArrowRight /></>}
+            {loading ? 'Resetting...' : <>Reset Password <FiArrowRight /></>}
           </button>
         </form>
 
         <p className="auth-switch">
-          Don't have an account? <Link to="/register">Create one free</Link>
+          <Link to="/login"><FiArrowLeft style={{ verticalAlign: 'middle' }} /> Back to sign in</Link>
         </p>
       </motion.div>
     </div>
   );
 };
 
-export default Login;
+export default ResetPassword;

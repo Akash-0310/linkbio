@@ -87,6 +87,51 @@
   margin-bottom: 16px;
 }
 
+.auth-forgot-link {
+  display: block;
+  text-align: right;
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.auth-forgot-link:hover {
+  text-decoration: underline;
+}
+
+.auth-success {
+  text-align: center;
+  padding: 8px 0 4px;
+}
+
+.auth-success-icon {
+  font-size: 2.4rem;
+  color: var(--success, #22c55e);
+  margin-bottom: 12px;
+}
+
+.auth-success p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.auth-dev-link {
+  margin-top: 16px;
+  padding: 12px;
+  background: rgba(37, 99, 235, 0.08);
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: 10px;
+  font-size: 0.8rem;
+  word-break: break-all;
+}
+
+.auth-dev-link a {
+  color: var(--accent);
+  font-weight: 600;
+}
+
 .auth-switch {
   text-align: center;
   margin-top: 24px;
