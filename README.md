@@ -31,7 +31,3 @@ Creators sign up, design their page with drag-and-drop ease, pick a handle, and 
 - **Public profile page** at a clean shareable URL.
 - **Branded design** with customization to match the creator's identity.
 - **Informational pages** (About, FAQ, Resources, Contact) so creators understand the tool and can reach out for help.
-
-## The idea in one line
-
-LinkBio is your entire online presence, folded neatly into one tap — and owned by you, not a platform.
