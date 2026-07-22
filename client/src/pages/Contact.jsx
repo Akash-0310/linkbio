@@ -123,8 +123,9 @@ const Contact = () => {
                   <form onSubmit={handleSubmit} className="contact-form">
                     <div className="form-row">
                       <div className="form-group">
-                        <label>Your Name</label>
+                        <label htmlFor="contact-name">Your Name</label>
                         <input
+                          id="contact-name"
                           type="text"
                           name="name"
                           value={formData.name}
@@ -135,8 +136,9 @@ const Contact = () => {
                         />
                       </div>
                       <div className="form-group">
-                        <label>Email Address</label>
+                        <label htmlFor="contact-email">Email Address</label>
                         <input
+                          id="contact-email"
                           type="email"
                           name="email"
                           value={formData.email}
@@ -148,8 +150,9 @@ const Contact = () => {
                       </div>
                     </div>
                     <div className="form-group">
-                      <label>Subject</label>
+                      <label htmlFor="contact-subject">Subject</label>
                       <input
+                        id="contact-subject"
                         type="text"
                         name="subject"
                         value={formData.subject}
@@ -160,8 +163,9 @@ const Contact = () => {
                       />
                     </div>
                     <div className="form-group">
-                      <label>Message</label>
+                      <label htmlFor="contact-message">Message</label>
                       <textarea
+                        id="contact-message"
                         name="message"
                         value={formData.message}
                         onChange={handleChange}

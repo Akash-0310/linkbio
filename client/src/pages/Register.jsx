@@ -65,8 +65,9 @@ const Register = () => {
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-row-auth">
             <div className="form-group">
-              <label><FiAtSign /> Username</label>
+              <label htmlFor="register-username"><FiAtSign /> Username</label>
               <input
+                id="register-username"
                 type="text"
                 name="username"
                 value={form.username}
@@ -77,8 +78,9 @@ const Register = () => {
               />
             </div>
             <div className="form-group">
-              <label><FiUser /> Display Name</label>
+              <label htmlFor="register-displayName"><FiUser /> Display Name</label>
               <input
+                id="register-displayName"
                 type="text"
                 name="displayName"
                 value={form.displayName}
@@ -90,8 +92,9 @@ const Register = () => {
             </div>
           </div>
           <div className="form-group">
-            <label><FiMail /> Email Address</label>
+            <label htmlFor="register-email"><FiMail /> Email Address</label>
             <input
+              id="register-email"
               type="email"
               name="email"
               value={form.email}
@@ -103,8 +106,9 @@ const Register = () => {
           </div>
           <div className="form-row-auth">
             <div className="form-group">
-              <label><FiLock /> Password</label>
+              <label htmlFor="register-password"><FiLock /> Password</label>
               <input
+                id="register-password"
                 type="password"
                 name="password"
                 value={form.password}
@@ -115,8 +119,9 @@ const Register = () => {
               />
             </div>
             <div className="form-group">
-              <label><FiLock /> Confirm Password</label>
+              <label htmlFor="register-confirmPassword"><FiLock /> Confirm Password</label>
               <input
+                id="register-confirmPassword"
                 type="password"
                 name="confirmPassword"
                 value={form.confirmPassword}

@@ -51,8 +51,9 @@ const Login = () => {
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label><FiMail /> Email Address</label>
+            <label htmlFor="login-email"><FiMail /> Email Address</label>
             <input
+              id="login-email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -62,8 +63,9 @@ const Login = () => {
             />
           </div>
           <div className="form-group">
-            <label><FiLock /> Password</label>
+            <label htmlFor="login-password"><FiLock /> Password</label>
             <input
+              id="login-password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
