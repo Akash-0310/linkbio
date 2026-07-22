@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FiMail, FiLock, FiUser, FiAtSign, FiArrowRight } from 'react-icons/fi';
+import { FiMail, FiLock, FiUser, FiAtSign, FiArrowRight, FiEye, FiEyeOff } from 'react-icons/fi';
 import { IoRocketOutline } from 'react-icons/io5';
 import { useAuth } from '../context/AuthContext';
 import './Auth.css';
@@ -12,6 +12,8 @@ const Register = () => {
   const [form, setForm] = useState({ username: '', displayName: '', email: '', password: '', confirmPassword: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -107,29 +109,51 @@ const Register = () => {
           <div className="form-row-auth">
             <div className="form-group">
               <label htmlFor="register-password"><FiLock /> Password</label>
-              <input
-                id="register-password"
-                type="password"
-                name="password"
-                value={form.password}
-                onChange={handleChange}
-                placeholder="Min 6 characters"
-                className="form-input"
-                required
-              />
+              <div className="password-field">
+                <input
+                  id="register-password"
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  value={form.password}
+                  onChange={handleChange}
+                  placeholder="Min 6 characters"
+                  className="form-input"
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowPassword((v) => !v)}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  aria-pressed={showPassword}
+                >
+                  {showPassword ? <FiEyeOff /> : <FiEye />}
+                </button>
+              </div>
             </div>
             <div className="form-group">
               <label htmlFor="register-confirmPassword"><FiLock /> Confirm Password</label>
-              <input
-                id="register-confirmPassword"
-                type="password"
-                name="confirmPassword"
-                value={form.confirmPassword}
-                onChange={handleChange}
-                placeholder="Re-enter password"
-                className="form-input"
-                required
-              />
+              <div className="password-field">
+                <input
+                  id="register-confirmPassword"
+                  type={showConfirm ? 'text' : 'password'}
+                  name="confirmPassword"
+                  value={form.confirmPassword}
+                  onChange={handleChange}
+                  placeholder="Re-enter password"
+                  className="form-input"
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-toggle"
+                  onClick={() => setShowConfirm((v) => !v)}
+                  aria-label={showConfirm ? 'Hide password' : 'Show password'}
+                  aria-pressed={showConfirm}
+                >
+                  {showConfirm ? <FiEyeOff /> : <FiEye />}
+                </button>
+              </div>
             </div>
           </div>
           {error && <div className="auth-error">{error}</div>}

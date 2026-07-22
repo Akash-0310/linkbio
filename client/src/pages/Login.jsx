@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FiMail, FiLock, FiArrowRight } from 'react-icons/fi';
+import { FiMail, FiLock, FiArrowRight, FiEye, FiEyeOff } from 'react-icons/fi';
 import { IoRocketOutline } from 'react-icons/io5';
 import { useAuth } from '../context/AuthContext';
 import './Auth.css';
@@ -11,6 +11,7 @@ const Login = () => {
   useDocumentTitle('Log In');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
@@ -64,15 +65,26 @@ const Login = () => {
           </div>
           <div className="form-group">
             <label htmlFor="login-password"><FiLock /> Password</label>
-            <input
-              id="login-password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-              className="form-input"
-              required
-            />
+            <div className="password-field">
+              <input
+                id="login-password"
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                className="form-input"
+                required
+              />
+              <button
+                type="button"
+                className="password-toggle"
+                onClick={() => setShowPassword((v) => !v)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                aria-pressed={showPassword}
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </button>
+            </div>
             <Link to="/forgot-password" className="auth-forgot-link">Forgot password?</Link>
           </div>
           {error && <div className="auth-error">{error}</div>}
