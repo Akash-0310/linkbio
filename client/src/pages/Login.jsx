@@ -5,8 +5,10 @@ import { FiMail, FiLock, FiArrowRight } from 'react-icons/fi';
 import { IoRocketOutline } from 'react-icons/io5';
 import { useAuth } from '../context/AuthContext';
 import './Auth.css';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const Login = () => {
+  useDocumentTitle('Log In');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');

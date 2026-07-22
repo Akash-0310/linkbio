@@ -5,6 +5,7 @@ import { IoRocketOutline } from 'react-icons/io5';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import './Dashboard.css';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
@@ -34,6 +35,8 @@ const THEMES = [
 ];
 
 const Dashboard = () => {
+  useDocumentTitle('Dashboard');
+
   const { user, updateUser } = useAuth();
   const [activeTab, setActiveTab] = useState('links');
   const [links, setLinks] = useState([]);

@@ -4,8 +4,11 @@ import { FiArrowRight, FiLink, FiBarChart2, FiSmartphone, FiZap, FiShield, FiGlo
 import { IoRocketOutline } from 'react-icons/io5';
 import ScrollReveal, { StaggerContainer, StaggerItem } from '../components/ScrollReveal';
 import './Home.css';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const Home = () => {
+  useDocumentTitle('One Link to Rule All Your Content');
+
   const features = [
     {
       icon: <FiLink />,

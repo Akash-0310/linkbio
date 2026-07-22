@@ -4,10 +4,13 @@ import { FiMail, FiMapPin, FiPhone, FiSend, FiMessageCircle, FiClock, FiCheckCir
 import axios from 'axios';
 import ScrollReveal, { StaggerContainer, StaggerItem } from '../components/ScrollReveal';
 import './Contact.css';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const Contact = () => {
+  useDocumentTitle('Contact');
+
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState({ loading: false, success: false, error: '' });
 

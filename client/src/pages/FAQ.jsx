@@ -4,8 +4,11 @@ import { FiChevronDown, FiHelpCircle, FiSearch } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import ScrollReveal, { StaggerContainer, StaggerItem } from '../components/ScrollReveal';
 import './FAQ.css';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const FAQ = () => {
+  useDocumentTitle('FAQ');
+
   const [openIndex, setOpenIndex] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 

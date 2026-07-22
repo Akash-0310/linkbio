@@ -2,8 +2,11 @@ import { motion } from 'framer-motion';
 import { FiTarget, FiHeart, FiUsers, FiGlobe, FiAward, FiTrendingUp, FiShield, FiZap } from 'react-icons/fi';
 import ScrollReveal, { StaggerContainer, StaggerItem } from '../components/ScrollReveal';
 import './About.css';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const About = () => {
+  useDocumentTitle('About');
+
   const values = [
     {
       icon: <FiHeart />,

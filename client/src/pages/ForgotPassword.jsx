@@ -5,8 +5,11 @@ import { FiMail, FiArrowRight, FiArrowLeft, FiCheckCircle } from 'react-icons/fi
 import { IoRocketOutline } from 'react-icons/io5';
 import { useAuth } from '../context/AuthContext';
 import './Auth.css';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const ForgotPassword = () => {
+  useDocumentTitle('Forgot Password');
+
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);

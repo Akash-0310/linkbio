@@ -2,8 +2,11 @@ import { useState } from 'react';
 import { FiBook, FiVideo, FiDownload, FiExternalLink, FiLayout, FiTrendingUp, FiPenTool, FiCode, FiCamera, FiShare2 } from 'react-icons/fi';
 import ScrollReveal, { StaggerContainer, StaggerItem } from '../components/ScrollReveal';
 import './Resources.css';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const Resources = () => {
+  useDocumentTitle('Resources');
+
   const [activeTab, setActiveTab] = useState('all');
 
   const resources = [

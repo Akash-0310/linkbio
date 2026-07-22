@@ -5,8 +5,11 @@ import { FiLock, FiArrowRight, FiArrowLeft } from 'react-icons/fi';
 import { IoRocketOutline } from 'react-icons/io5';
 import { useAuth } from '../context/AuthContext';
 import './Auth.css';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const ResetPassword = () => {
+  useDocumentTitle('Reset Password');
+
   const { token } = useParams();
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');

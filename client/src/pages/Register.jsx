@@ -5,8 +5,10 @@ import { FiMail, FiLock, FiUser, FiAtSign, FiArrowRight } from 'react-icons/fi';
 import { IoRocketOutline } from 'react-icons/io5';
 import { useAuth } from '../context/AuthContext';
 import './Auth.css';
+import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const Register = () => {
+  useDocumentTitle('Sign Up');
   const [form, setForm] = useState({ username: '', displayName: '', email: '', password: '', confirmPassword: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
