@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ParticleBackground from './components/ParticleBackground';
 import LoadingScreen from './components/LoadingScreen';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import About from './pages/About';
 import FAQ from './pages/FAQ';
@@ -34,6 +35,7 @@ const AppContent = () => {
 
   return (
     <>
+      <ScrollToTop />
       {showLayout && <ParticleBackground />}
       {showLayout && <Navbar />}
       <div style={{ position: 'relative', zIndex: 1 }}>
