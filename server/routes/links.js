@@ -4,6 +4,36 @@ const Analytics = require('../models/Analytics');
 const { protect } = require('../middleware/auth');
 const router = express.Router();
 
+// Link URLs are typed by hand and then handed to window.open for every visitor
+// of a public profile, so normalise before storing:
+//   - a bare host ('instagram.com/me') is otherwise resolved relative to the
+//     LinkBio domain, so the button 404s instead of leaving the site;
+//   - only web-ish schemes are accepted, so a javascript: or data: URL can't be
+//     saved and later opened in a visitor's browser.
+const SAFE_SCHEMES = ['http:', 'https:', 'mailto:', 'tel:'];
+const HAS_SCHEME = /^[a-zA-Z][a-zA-Z\d+.-]*:/;
+
+function normalizeLinkUrl(raw) {
+  const value = String(raw ?? '').trim();
+  if (!value) return { error: 'A URL is required' };
+
+  // Treat a scheme-less value (including protocol-relative //host) as https.
+  const candidate = HAS_SCHEME.test(value) ? value : `https://${value.replace(/^\/+/, '')}`;
+
+  let parsed;
+  try {
+    parsed = new URL(candidate);
+  } catch {
+    return { error: 'That does not look like a valid URL' };
+  }
+
+  if (!SAFE_SCHEMES.includes(parsed.protocol)) {
+    const allowed = SAFE_SCHEMES.map((s) => s.replace(':', '')).join(', ');
+    return { error: `Links must start with one of: ${allowed}` };
+  }
+  return { url: parsed.href };
+}
+
 // Get user's links (authenticated)
 router.get('/', protect, async (req, res) => {
   try {
@@ -18,9 +48,12 @@ router.get('/', protect, async (req, res) => {
 router.post('/', protect, async (req, res) => {
   try {
     const { title, url, icon } = req.body;
+    const normalized = normalizeLinkUrl(url);
+    if (normalized.error) return res.status(400).json({ message: normalized.error });
+
     const user = await User.findById(req.user._id);
     const order = user.links.length;
-    user.links.push({ title, url, icon: icon || 'link', order });
+    user.links.push({ title, url: normalized.url, icon: icon || 'link', order });
     await user.save();
     res.status(201).json(user.links);
   } catch (error) {
@@ -35,7 +68,11 @@ router.put('/:linkId', protect, async (req, res) => {
     const link = user.links.id(req.params.linkId);
     if (!link) return res.status(404).json({ message: 'Link not found' });
     if (req.body.title) link.title = req.body.title;
-    if (req.body.url) link.url = req.body.url;
+    if (req.body.url) {
+      const normalized = normalizeLinkUrl(req.body.url);
+      if (normalized.error) return res.status(400).json({ message: normalized.error });
+      link.url = normalized.url;
+    }
     if (req.body.icon) link.icon = req.body.icon;
     if (req.body.isActive !== undefined) link.isActive = req.body.isActive;
     if (req.body.order !== undefined) link.order = req.body.order;
