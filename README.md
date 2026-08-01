@@ -1,6 +1,6 @@
 # LinkBio — The Link-in-Bio Page Builder
 
-Your own customizable page that lives behind one link — for everything you want the internet to know about you.
+Your own customizable page that lives behind one link — for everything you want the internet to know about .
 
 ## What it is
 
