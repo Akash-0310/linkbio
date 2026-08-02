@@ -10,15 +10,33 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
+// The schema stores username and email lowercased and trimmed, so every lookup
+// has to normalise the same way — otherwise a value that differs only in case
+// simply doesn't match the stored row.
+const normalize = (value) => String(value ?? '').toLowerCase().trim();
+
 // Register
 router.post('/register', async (req, res) => {
   try {
     const { username, email, password, displayName } = req.body;
-    const userExists = await User.findOne({ $or: [{ email }, { username }] });
+    // Match how the values will be stored, or "Akash@Gmail.com" slips past this
+    // check and then trips the unique index inside create() — surfacing as a
+    // raw duplicate-key 500 instead of this friendly 400.
+    const normalizedEmail = normalize(email);
+    const normalizedUsername = normalize(username);
+
+    const userExists = await User.findOne({
+      $or: [{ email: normalizedEmail }, { username: normalizedUsername }],
+    });
     if (userExists) {
       return res.status(400).json({ message: 'User already exists with that email or username' });
     }
-    const user = await User.create({ username, email, password, displayName });
+    const user = await User.create({
+      username: normalizedUsername,
+      email: normalizedEmail,
+      password,
+      displayName,
+    });
     res.status(201).json({
       _id: user._id,
       username: user.username,
@@ -35,7 +53,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: normalize(email) });
     if (user && (await user.matchPassword(password))) {
       res.json({
         _id: user._id,
@@ -64,7 +82,7 @@ router.post('/forgot-password', async (req, res) => {
       return res.status(400).json({ message: 'Email is required' });
     }
 
-    const user = await User.findOne({ email: email.toLowerCase().trim() });
+    const user = await User.findOne({ email: normalize(email) });
 
     // Always return the same response so we don't reveal which emails are registered
     const genericMessage = 'If an account with that email exists, a password reset link has been sent.';
